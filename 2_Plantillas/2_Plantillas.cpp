@@ -60,7 +60,7 @@ int main()
     cout << "char: " << sizeof(char) << "\n";
     cout << "string: " << sizeof(string) << "\n";
 
-    DataHelper<char>* myChar = new  DataHelper<char>(12);
+    DataHelper<char>* myChar = new  DataHelper<char>(25);
     DataHelper<float>* myFloat = new  DataHelper<float>(sizeof(float));
 
     DataHelper<char*>* myChars = new  DataHelper<char*>((char*) "Ayoooo");
@@ -74,14 +74,32 @@ int main()
     myFloat->printToFile("float.txt");
     myFloat->printToFile("float.bin", true);
 
-    fstream archivo("starbit.bmp", ios_base::in | ios_base::out);
+    fstream archivo("dumpTruck", ios_base::out);
     if (archivo.is_open())
     {
         char* buffer = new char[8];
-        while (!archivo.eof())
+        //while (!archivo.eof())
+        //{
+        //    archivo.read(buffer,8);
+        //    cout << hex << buffer << "\n";
+        //}
+
+        //archivo.clear();
+        archivo.seekp(0, ios::beg);
+        char* buff;
+        buff = (char*)malloc(10000);
+
+        if (buff != nullptr)
         {
-            archivo.read(buffer,8);
-            cout << hex << buffer << "\n";
+            memset((void*)buff, 1, 10000);
+            cout << "you sucksssss";
+            archivo.write(buff, 10000);
         }
+
+        archivo.close();
+    }
+    else
+    {
+        cout << "no se puede crear el dmp";
     }
 }
